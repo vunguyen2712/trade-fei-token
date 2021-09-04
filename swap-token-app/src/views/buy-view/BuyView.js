@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../trade-view/TradeView.css';
 
-const BuyView = ({data}) => {
+const BuyView = ({ data }) => {
     console.log('buy-view', data)
     const [balance, setBalance] = useState('0')
     const [minReceived, setMinReceived] = useState('3,824.55')
@@ -11,8 +11,12 @@ const BuyView = ({data}) => {
     return (
         <>
             <div className='balance-container'>
-                <div><span>{`BALANCE: ${} ETH` }</span></div>
-                <button>MAX</button>
+                <div><span>{`BALANCE: ${balance} ETH`}</span></div>
+                <button className='max-btn'>
+                    <div className='max-btn-inner-container'>
+                        <div className='max-btn-title'> MAX</div>
+                    </div>
+                </button>
             </div>
             <div className='amount-container'>
                 <input className='amount-input' />
