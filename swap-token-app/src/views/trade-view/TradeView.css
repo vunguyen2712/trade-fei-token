@@ -1,0 +1,101 @@
+.trade-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+    margin-top: 100px;
+    border-radius: 12px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 380px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.buy-sell-container {
+    display: flex;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 400;
+    width: 100%;
+    height: 40px;
+    border-radius: 12px;
+}
+
+.buy-sell-btn {
+    border-radius: 12px;
+    background-color: transparent;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    display: flex;
+    width: 50%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.buy {
+    background-color: rgb(37, 184, 130);
+}
+
+.sell {
+    background-color: rgb(184, 37, 37);
+}
+
+.balance-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+.max-btn {
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    height: auto;
+    line-height: 1;
+    min-height: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-sizing: border-box;
+    outline-style: none;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.amount-container {
+    display: flex;
+    width: 100%;
+    position: relative;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+.amount-input {
+    border-radius: 12px;
+    background-color: rgb(82, 86, 105);
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    height: 50px;
+    line-height: normal;
+    padding-left: 52px;
+    padding-right: 55px;
+    text-align: right;
+    width: 100%;
+    border-width: 0px;
+    box-sizing: border-box;
+    outline: transparent none 1px;
+    outline-offset: 4px;
+}
