@@ -13,17 +13,18 @@
     box-sizing: border-box;
 }
 
-.buy-sell-container {
+.trade-inner-container {
+    background-color: rgb(82, 86, 105);
+    height: 40px;
     display: flex;
     font-size: 18px;
     line-height: 22px;
     font-weight: 400;
     width: 100%;
-    height: 40px;
     border-radius: 12px;
 }
 
-.buy-sell-btn {
+.trade-btn {
     border-radius: 12px;
     background-color: transparent;
     cursor: pointer;
@@ -98,4 +99,183 @@
     box-sizing: border-box;
     outline: transparent none 1px;
     outline-offset: 4px;
+}
+
+.from-token {
+    color: rgb(211, 211, 211);
+    position: absolute;
+    right: 12px;
+    top: 14px;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 600;
+    white-space: pre-line; 
+}
+
+.usd-value-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+.usd-value-title {
+    color: rgb(151, 153, 164);
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 600;
+    white-space: pre-line;
+}
+
+.usd-value {
+    color: rgb(151, 153, 164);
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 600;
+    white-space: pre-line;
+}
+
+.received-token-container {
+    display: flex;
+    width: 100%;
+    position: relative;
+    margin-top: 7px;
+    box-sizing: border-box;
+}
+
+.received-token-value-container {
+    border-radius: 12px;
+    background-color: rgb(82, 86, 105);
+    color: rgb(255, 255, 255);
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    display: flex;
+    width: 100%;
+    height: 50px;
+    padding-left: 52px;
+    padding-right: 55px;
+    box-sizing: border-box;
+}
+
+.received-token-value {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 400;
+    white-space: pre-line;
+}
+
+.received-token {
+    color: rgb(211, 211, 211);
+    position: absolute;
+    right: 12px;
+    top: 14px;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 600;
+    white-space: pre-line;
+}
+
+.min-received-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+.min-received-title {
+    color: rgb(151, 153, 164);
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 600;
+    white-space: pre-line;
+}
+
+.min-received-value-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.min-received-value {
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 600;
+    white-space: pre-line;
+}
+
+.buy-sell-btn-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.buy-sell-btn {
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    height: 44px;
+    line-height: 1;
+    min-height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    appearance: none;
+    box-sizing: border-box;
+    outline-style: none;
+    text-align: center;
+    text-decoration: none;
+    transition-duration: 200ms;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.buy-sell-btn.buy-btn {
+    background-color: rgb(37, 184, 130);
+}
+
+.buy-sell-btn.sell-btn {
+    background-color: rgb(184, 37, 37);
+}
+
+.buy-btn:hover {
+    background-color: rgb(37, 184, 130);
+    color: rgb(255, 255, 255);
+    transform: scale(1.02);
+}
+
+.sell-btn:hover {
+    background-color: rgb(184, 37, 37);
+    color: rgb(255, 255, 255);
+    transform: scale(1.02);
+}
+
+.buy-sell-btn-text {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 600;
+    white-space: pre-line;
 }
