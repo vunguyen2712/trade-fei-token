@@ -1,26 +1,28 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import BuyView from '../buy-view/BuyView';
 import SellView from '../sell-view/SellView'
 import './TradeView.css';
-import {data} from '../../utils/mockData.js';
+import { data } from '../../utils/mockData.js';
 
 const TradeView = () => {
-    console.log('trade-view', data)
+    const {balance: balanceData, ratesAndFees} = data;
+    const [balance, setBalance] = useState(balanceData)
     const [isBuyState, setIsBuyState] = useState(true)
 
     const switchTrade = (trade) => {
-        if (trade === 'buy') setIsBuyState(true);
+        if (trade === 'buy') setIsBuyState(true)
         else setIsBuyState(false);
     }
 
     const renderBuySellView = () => {
-        if (isBuyState) return <BuyView data={data}/>
-        else return <SellView data={data}/>
+        if (isBuyState) return <BuyView balance={balance} ratesAndFees={ratesAndFees} setBalance={setBalance} />
+        else return <SellView balance={balance} ratesAndFees={ratesAndFees} setBalance={setBalance} />
     }
 
     return (
         <>
-            <div className='trade-container'> 
+            <div className='page-title'>Trade FEI</div>
+            <div className='trade-container'>
                 <div className='trade-inner-container'>
                     <div className={`trade-btn + ${isBuyState ? 'buy' : ''}`} onClick={() => switchTrade('buy')}>Buy</div>
                     <div className={`trade-btn + ${isBuyState ? '' : 'sell'}`} onClick={() => switchTrade('sell')}>Sell</div>

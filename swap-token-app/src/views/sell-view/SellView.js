@@ -1,21 +1,46 @@
 import React, { useState } from 'react';
 import '../trade-view/TradeView.css';
-// import { data } from '../../utils/mockData.js';
 
-const SellView = ({data}) => {
-    console.log('sell-view', data)
-    const [minReceived, setMinReceived] = useState('3,824.55')
-    const [usdVal, setUsdVal] = useState('3,868.02')
-    const [receivedTokenVal, setReceivedTokenVal] = useState('3,843.76')
+const SellView = ({ balance, ratesAndFees: { feiToUsdRate, feiToEthRate, swapFeePercentage }, setBalance }) => {
+    const [tradingAmount, setTradingAmount] = useState(0)
+    const [usdVal, setUsdVal] = useState(0)
+    const [receivedTokenVal, setReceivedTokenVal] = useState(0)
+    const [minReceived, setMinReceived] = useState(0)
+
+    const updateTradingAmount = (amount) => {
+        setTradingAmount(amount)
+        setUsdVal(amount * feiToUsdRate)
+        let ethReceived = feiToEthRate * amount
+        setReceivedTokenVal(ethReceived)
+        setMinReceived(ethReceived - swapFeePercentage / 100 * ethReceived)
+    }
+    const sellFeiMax = () => {
+        updateTradingAmount(balance.FEI)
+    }
+
+    const handleAmountInputOnChange = ({ target: { value: newVal } }) => {
+        updateTradingAmount(newVal)
+    }
+
+    const executeSell = () => {
+        setBalance({
+            ETH: balance.ETH + minReceived,
+            FEI: balance.FEI - tradingAmount,
+        })
+    }
 
     return (
         <>
             <div className='balance-container'>
-                <div><span>Balance { }</span></div>
-                <button>MAX</button>
+                <div className='balance'><span>{`BALANCE: ${balance.FEI} FEI`}</span></div>
+                <button className='max-btn'>
+                    <div className='max-btn-inner-container'>
+                        <div className='max-btn-title' onClick={sellFeiMax}> MAX</div>
+                    </div>
+                </button>
             </div>
             <div className='amount-container'>
-                <input className='amount-input' />
+                <input className='amount-input' value={tradingAmount} onChange={handleAmountInputOnChange} type='number' min='0' />
                 {/* FEI svg goes here */}
                 <div className='from-token'>FEI</div>
             </div>
@@ -40,8 +65,8 @@ const SellView = ({data}) => {
                 </div>
             </div>
             <div className='buy-sell-btn-container'>
-                <button className='buy-sell-btn sell-btn'>
-                    <div className='buy-sell-btn-text'>Buy FEI</div>
+                <button className='buy-sell-btn sell-btn' onClick={executeSell}>
+                    <div className='buy-sell-btn-text'>Sell FEI</div>
                 </button>
             </div>
         </>
