@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAlert } from 'react-alert'
+import { formatTokenVal, TOKEN_MAX_DECIMALS } from '../../utils/numberFormat'
 import '../trade-view/TradeView.css';
 
 const SellView = ({ balance, ratesAndFees: { feiToUsdRate, feiToEthRate, swapFeePercentage }, setBalance, setErrorMsg }) => {
@@ -12,10 +13,11 @@ const SellView = ({ balance, ratesAndFees: { feiToUsdRate, feiToEthRate, swapFee
 
     const updateTradingAmount = (amount) => {
         setTradingAmount(amount)
-        setUsdVal(amount * feiToUsdRate)
+        setUsdVal((amount * feiToUsdRate).toFixed(2))
         let ethReceived = feiToEthRate * amount
-        setReceivedTokenVal(ethReceived)
-        setMinReceived(ethReceived - swapFeePercentage / 100 * ethReceived)
+        setReceivedTokenVal(formatTokenVal(ethReceived, TOKEN_MAX_DECIMALS))
+        let minTokensReceived = ethReceived - swapFeePercentage / 100 * ethReceived
+        setMinReceived(formatTokenVal(minTokensReceived, TOKEN_MAX_DECIMALS))
     }
     const sellFeiMax = () => {
         updateTradingAmount(balance.FEI)
