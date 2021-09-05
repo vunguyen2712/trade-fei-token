@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import '../trade-view/TradeView.css';
+import React, { useState } from 'react'
+import { useAlert } from 'react-alert'
+import '../trade-view/TradeView.css'
 
-const BuyView = ({ balance, ratesAndFees: { ethToUsdRate, ethToFeiRate, swapFeePercentage }, setBalance }) => {
+const BuyView = ({ balance, ratesAndFees: { ethToUsdRate, ethToFeiRate, swapFeePercentage }, setBalance, setErrorMsg }) => {
+    const alert = useAlert()
     const [tradingAmount, setTradingAmount] = useState(0)
+    const [tradingAmountError, setTradingAmountError] = useState(null)
     const [usdVal, setUsdVal] = useState(0)
     const [receivedTokenVal, setReceivedTokenVal] = useState(0)
     const [minReceived, setMinReceived] = useState(0)
@@ -20,14 +23,32 @@ const BuyView = ({ balance, ratesAndFees: { ethToUsdRate, ethToFeiRate, swapFeeP
     }
 
     const handleAmountInputOnChange = ({ target: { value: newVal } }) => {
+        // reset old error msg
+        let newValFloat = parseFloat(newVal)
+        newValFloat = isNaN(newValFloat) ? 0 : newValFloat
+        if (tradingAmountError) {
+            setErrorMsg(null)
+            setTradingAmountError(null)
+        }
+        if (newValFloat <= 0 || newValFloat > balance.ETH) {
+            setTradingAmountError('Insufficient balance')
+        }
         updateTradingAmount(newVal)
     }
 
     const executeBuy = () => {
-        setBalance({
-            ETH: balance.ETH - tradingAmount,
-            FEI: balance.FEI + minReceived,
-        })
+        if (tradingAmount > balance.ETH) {
+            setErrorMsg('Insufficient balance')
+        } else if (tradingAmount <= 0) {
+            setErrorMsg('Enter a valid ETH amount')
+        } else if (tradingAmount <= balance.ETH) {
+            setBalance({
+                ETH: balance.ETH - tradingAmount,
+                FEI: balance.FEI + minReceived,
+            })
+            alert.show(`You have purchased ${minReceived} FEI.`)
+            setErrorMsg(null)
+        }
     }
 
     return (
@@ -41,7 +62,7 @@ const BuyView = ({ balance, ratesAndFees: { ethToUsdRate, ethToFeiRate, swapFeeP
                 </button>
             </div>
             <div className='amount-container'>
-                <input className='amount-input' value={tradingAmount} onChange={handleAmountInputOnChange} type='number' min='0' />
+                <input className={`amount-input ${tradingAmountError ? 'input-error' : ''}`} value={tradingAmount} onChange={handleAmountInputOnChange} type='number' min='0' />
                 {/* ETH svg goes here */}
                 <div className='from-token'>ETH</div>
             </div>

@@ -8,6 +8,7 @@ const TradeView = () => {
     const {balance: balanceData, ratesAndFees} = data;
     const [balance, setBalance] = useState(balanceData)
     const [isBuyState, setIsBuyState] = useState(true)
+    const [errorMsg, setErrorMsg] = useState(null)
 
     const switchTrade = (trade) => {
         if (trade === 'buy') setIsBuyState(true)
@@ -15,8 +16,8 @@ const TradeView = () => {
     }
 
     const renderBuySellView = () => {
-        if (isBuyState) return <BuyView balance={balance} ratesAndFees={ratesAndFees} setBalance={setBalance} />
-        else return <SellView balance={balance} ratesAndFees={ratesAndFees} setBalance={setBalance} />
+        if (isBuyState) return <BuyView balance={balance} ratesAndFees={ratesAndFees} setBalance={setBalance} setErrorMsg={setErrorMsg}/>
+        else return <SellView balance={balance} ratesAndFees={ratesAndFees} setBalance={setBalance} setErrorMsg={setErrorMsg}/>
     }
 
     return (
@@ -29,6 +30,12 @@ const TradeView = () => {
                 </div>
                 {renderBuySellView()}
             </div>
+            {errorMsg && 
+            <div className='error-msg-container'>
+                <div className='error-msg-inner-container'>
+                    <div className='error-msg'>{errorMsg}</div>
+                </div>
+            </div>}
         </>
     )
 }

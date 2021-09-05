@@ -1,5 +1,4 @@
 import TradeView from './views/trade-view/TradeView.js'
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
