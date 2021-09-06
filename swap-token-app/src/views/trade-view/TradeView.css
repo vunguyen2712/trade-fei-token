@@ -1,10 +1,9 @@
 .page-title {
     color: rgb(255, 255, 255);
     margin-top: 50px;
-    font-size: 28px;
+    font-size: 34px;
     line-height: 32px;
     font-weight: 400;
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     white-space: pre-line;
 }
 
@@ -13,22 +12,19 @@
     background-color: rgb(62, 66, 86);
     align-items: center;
     justify-content: center;
-    border: 1px solid;
     margin-top: 100px;
     border-radius: 12px;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
     width: 380px;
     padding: 15px;
-    box-sizing: border-box;
+    z-index: 1;
 }
 
 .trade-inner-container {
     background-color: rgb(82, 86, 105);
     height: 40px;
     display: flex;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 22px;
     font-weight: 400;
     width: 100%;
@@ -71,7 +67,7 @@
 
 .balance {
     color: rgb(151, 153, 164);
-    font-size: 12px;
+    font-size: 14px;
     line-height: 15px;
     font-weight: 400;
     white-space: pre-line;
@@ -89,8 +85,6 @@
     border: 1px solid rgb(11, 130, 184);
     border-radius: 4px;
     cursor: pointer;
-    appearance: none;
-    box-sizing: border-box;
     outline-style: none;
     text-align: center;
     text-decoration: none;
@@ -118,7 +112,7 @@
 .max-btn-title {
     color: rgb(11, 130, 184);
     padding: 2px 3.5px 2px 4px;
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1;
     font-weight: 600;
     letter-spacing: 1px;
@@ -150,7 +144,7 @@
     border-radius: 12px;
     background-color: rgb(82, 86, 105);
     color: rgb(255, 255, 255);
-    font-size: 18px;
+    font-size: 20px;
     height: 50px;
     line-height: normal;
     padding-left: 52px;
@@ -192,7 +186,7 @@
 
 .usd-value-title {
     color: rgb(151, 153, 164);
-    font-size: 12px;
+    font-size: 14px;
     line-height: 15px;
     font-weight: 600;
     white-space: pre-line;
@@ -200,7 +194,7 @@
 
 .usd-value {
     color: rgb(151, 153, 164);
-    font-size: 12px;
+    font-size: 14px;
     line-height: 15px;
     font-weight: 600;
     white-space: pre-line;
@@ -233,7 +227,7 @@
 
 .received-token-value {
     color: rgb(255, 255, 255);
-    font-size: 18px;
+    font-size: 20px;
     line-height: 22px;
     font-weight: 400;
     white-space: pre-line;
@@ -244,7 +238,7 @@
     position: absolute;
     right: 12px;
     top: 14px;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 22px;
     font-weight: 600;
     white-space: pre-line;
@@ -264,7 +258,7 @@
 
 .min-received-title {
     color: rgb(151, 153, 164);
-    font-size: 12px;
+    font-size: 14px;
     line-height: 15px;
     font-weight: 600;
     white-space: pre-line;
@@ -280,7 +274,7 @@
 
 .min-received-value {
     color: rgb(255, 255, 255);
-    font-size: 12px;
+    font-size: 14px;
     line-height: 15px;
     font-weight: 600;
     white-space: pre-line;
@@ -297,7 +291,7 @@
 
 .buy-sell-btn {
     color: rgb(255, 255, 255);
-    font-size: 16px;
+    font-size: 18px;
     height: 44px;
     line-height: 1;
     min-height: 40px;
@@ -340,7 +334,7 @@
 
 .buy-sell-btn-text {
     color: rgb(255, 255, 255);
-    font-size: 18px;
+    font-size: 20px;
     line-height: 22px;
     font-weight: 600;
     white-space: pre-line;
@@ -381,4 +375,22 @@
     font-weight: 400;
     text-align: center;
     white-space: pre-line;
+}
+
+.error-init-pos {
+    top: -80px;
+}
+
+.error-final-pos {
+    top: 0;
+    transition: top .3s ease-in-out;
+}
+
+.info-icon {
+    cursor: pointer;
+    display: flex;
+    height: 12px;
+    margin-left: 5px;
+    width: 12px;
+    box-sizing: border-box;
 }

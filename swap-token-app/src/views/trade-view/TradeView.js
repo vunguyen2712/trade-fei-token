@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import './TradeView.css';
 import { data } from '../../utils/mockData.js';
 import { useAlert } from 'react-alert'
 import { formatTokenVal, TOKEN_MAX_DECIMALS } from '../../utils/numberFormat'
-import ETH_SVG from '../../assets/ETH-icon.svg'
-import FEI_SVG from '../../assets/FEI-icon.svg'
+import './TradeView.css';
+import ETH_ICON from '../../assets/ETH-icon.svg'
+import FEI_ICON from '../../assets/FEI-icon.svg'
+import INFO_ICON from '../../assets/info-icon.svg'
 
 const TradeView = () => {
     const alert = useAlert()
@@ -66,7 +67,6 @@ const TradeView = () => {
     }
 
     const adjustBalance = () => {
-        // Todo: format the balance as well - 6 decimals
         if (isBuyState) {
             setBalance({
                 ETH: balance.ETH - tradingAmount,
@@ -116,7 +116,7 @@ const TradeView = () => {
                 <div className='amount-container'>
                     <input className={`amount-input ${tradingAmountError ? 'input-error' : ''}`} value={tradingAmount} onChange={handleAmountInputOnChange} type='number' min='0' />
                     {/* ETh/FEI svg goes here */}
-                    <div className='icon'><img src={isBuyState ? ETH_SVG : FEI_SVG} alt="ETH icon" /></div>
+                    <div className='icon'><img src={isBuyState ? ETH_ICON : FEI_ICON} alt="ETH icon" /></div>
                     <div className='from-token'>{isBuyState ? 'ETH' : 'FEI'}</div>
                 </div>
                 <div className='usd-value-container'>
@@ -127,15 +127,16 @@ const TradeView = () => {
                     <div className='received-token-value-container'>
                         <div className='received-token-value'>{receivedTokenVal}</div>
                     </div>
-                    <div className='icon'><img src={isBuyState ? FEI_SVG : ETH_SVG} alt="FEI icon" /></div>
+                    <div className='icon'><img src={isBuyState ? FEI_ICON : ETH_ICON} alt="FEI icon" /></div>
                     <div className='received-token'>{isBuyState ? 'FEI' : 'ETH'}</div>
                 </div>
                 <div className='min-received-container'>
                     <div className='min-received-title'>MIN RECEIVED</div>
+
                     <div className='min-received-value-container'>
                         <div className='min-received-value'>{`${minReceived} ${isBuyState ? 'FEI' : 'ETH'}`}</div>
-                        <div className='slippage-tolerance'>
-                            {/* svg for info goes here */}
+                        <div className='info-icon'>
+                            <img src={INFO_ICON} alt="Info icon" />
                         </div>
                     </div>
                 </div>
@@ -145,12 +146,11 @@ const TradeView = () => {
                     </button>
                 </div>
             </div>
-            {tradingAmountError &&
-                <div className='error-msg-container'>
-                    <div className='error-msg-inner-container'>
-                        <div className='error-msg'>{tradingAmountError}</div>
-                    </div>
-                </div>}
+            <div className='error-msg-container'>
+            <div className={`error-msg-inner-container  ${tradingAmountError ? 'error-final-pos' : 'error-init-pos'}`}>
+                    <div className='error-msg'>{tradingAmountError}</div>
+                </div>
+            </div>
         </>
     )
 }
