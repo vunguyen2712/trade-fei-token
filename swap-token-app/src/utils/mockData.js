@@ -1,6 +1,6 @@
 export const data = {
     balance: {
-        ETH: 5,
+        ETH: 20,
         FEI: 4000,
     },
     ratesAndFees: {
