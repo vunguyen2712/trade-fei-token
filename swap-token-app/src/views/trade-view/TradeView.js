@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { data } from '../../utils/mockData.js';
 import { useAlert } from 'react-alert'
-import { formatTokenVal, formatUSD, TOKEN_MAX_DECIMALS, TOKEN_MIN_DECIMALS } from '../../utils/numberFormat'
+import { formatTokenVal, formatUSD, formatMaxInput, TOKEN_MAX_DECIMALS, TOKEN_MIN_DECIMALS } from '../../utils/numberFormat'
 import Tooltip from '../../components/tooltips/Tooltip'
 import './TradeView.css';
 import ETH_ICON from '../../assets/ETH-icon.svg'
@@ -19,6 +19,8 @@ const TradeView = () => {
     const [usdVal, setUsdVal] = useState('0')
     const [receivedTokenVal, setReceivedTokenVal] = useState('0')
     const [minReceived, setMinReceived] = useState('0')
+    const maxTokenDecimals = isBuyState ? TOKEN_MIN_DECIMALS : TOKEN_MAX_DECIMALS
+    const balanceDecimals = isBuyState ? TOKEN_MAX_DECIMALS : TOKEN_MIN_DECIMALS
 
     const resetForm = () => {
         setTradingAmount('')
@@ -50,17 +52,16 @@ const TradeView = () => {
 
     const updateTradingAmount = (amount) => {
         const rates = getRates()
-        const maxTokenDecimals = isBuyState ? TOKEN_MIN_DECIMALS : TOKEN_MAX_DECIMALS
         setTradingAmount(amount)
         setUsdVal(amount * rates.toUsdRate)
         let amountReceived = rates.toOtherTokenRate * amount
-        setReceivedTokenVal(formatTokenVal(amountReceived, maxTokenDecimals))
+        setReceivedTokenVal(amountReceived)
         let minAmountReceived = amountReceived - rates.swapFeePercentage / 100 * amountReceived
-        setMinReceived(formatTokenVal(minAmountReceived, maxTokenDecimals))
+        setMinReceived(minAmountReceived)
     }
     const tradeMax = () => {
         const currentBalance = isBuyState ? balance.ETH : balance.FEI
-        updateTradingAmount(currentBalance)
+        updateTradingAmount(formatMaxInput(currentBalance, balanceDecimals))
     }
 
     const handleAmountInputOnChange = ({ target: { value: newVal } }) => {
@@ -74,25 +75,26 @@ const TradeView = () => {
                 ETH: balance.ETH - tradingAmount,
                 FEI: balance.FEI + minReceived,
             })
-            alert.show(`You have purchased ${minReceived} FEI.`)
+            alert.show(`You have purchased ${formatTokenVal(minReceived, maxTokenDecimals)} FEI.`)
             setTradingAmountError(null)
         } else {
             setBalance({
                 ETH: balance.ETH + minReceived,
                 FEI: balance.FEI - tradingAmount,
             })
-            alert.show(`You have received ${minReceived} ETH.`)
+            alert.show(`You have received ${formatTokenVal(minReceived, maxTokenDecimals)} ETH.`)
             setTradingAmountError(null)
         }
     }
 
     const trade = () => {
         const currentBalance = isBuyState ? balance.ETH : balance.FEI
-        if (tradingAmount > currentBalance) {
+        const formattedBalance = parseFloat(formatMaxInput(currentBalance, balanceDecimals))
+        if (tradingAmount > formattedBalance) {
             setTradingAmountError('Insufficient balance')
         } else if (tradingAmount <= 0) {
             setTradingAmountError(`Enter a valid ${isBuyState ? 'ETH' : 'FEI'} amount`)
-        } else if (tradingAmount <= currentBalance) {
+        } else if (tradingAmount <= formattedBalance) {
             executeTrade()
         }
     }
@@ -107,7 +109,7 @@ const TradeView = () => {
                 </div>
                 <div className='balance-container'>
                     <div className='balance'>
-                        <span>{`BALANCE: ${isBuyState ? `${formatTokenVal(balance.ETH, TOKEN_MAX_DECIMALS)} ETH` : `${formatTokenVal(balance.FEI, TOKEN_MAX_DECIMALS)} FEI`}`}</span>
+                        <span>{`BALANCE: ${isBuyState ? `${formatTokenVal(balance.ETH, balanceDecimals)} ETH` : `${formatTokenVal(balance.FEI, balanceDecimals)} FEI`}`}</span>
                     </div>
                     <button className='max-btn'>
                         <div className='max-btn-inner-container'>
@@ -126,7 +128,7 @@ const TradeView = () => {
                 </div>
                 <div className='received-token-container'>
                     <div className='received-token-value-container'>
-                        <div className='received-token-value'>{receivedTokenVal}</div>
+                        <div className='received-token-value'>{formatTokenVal(receivedTokenVal, maxTokenDecimals)}</div>
                     </div>
                     <div className='icon'><img src={isBuyState ? FEI_ICON : ETH_ICON} alt="FEI icon" /></div>
                     <div className='received-token'>{isBuyState ? 'FEI' : 'ETH'}</div>
@@ -135,7 +137,7 @@ const TradeView = () => {
                     <div className='min-received-title'>MIN RECEIVED</div>
 
                     <div className='min-received-value-container'>
-                        <div className='min-received-value'>{`${minReceived} ${isBuyState ? 'FEI' : 'ETH'}`}</div>
+                        <div className='min-received-value'>{`${formatTokenVal(minReceived, maxTokenDecimals)} ${isBuyState ? 'FEI' : 'ETH'}`}</div>
                         <div className='info-icon'>
                             <Tooltip content={`SLIPPAGE TOLERANCE ${swapFeePercentage}%`} />
                             <img src={INFO_ICON} alt="Info icon" />
