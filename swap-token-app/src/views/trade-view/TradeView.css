@@ -137,6 +137,15 @@
     box-sizing: border-box;
 }
 
+.icon {
+    display: block;
+    height: 32px;
+    position: absolute;
+    left: 10px;
+    top: 9px;
+    width: 32px;
+}
+
 .amount-input {
     border-radius: 12px;
     background-color: rgb(82, 86, 105);
