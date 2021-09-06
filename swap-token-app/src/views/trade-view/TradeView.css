@@ -169,7 +169,7 @@
     font-size: 18px;
     line-height: 22px;
     font-weight: 600;
-    white-space: pre-line; 
+    white-space: pre-line;
 }
 
 .usd-value-container {
@@ -269,7 +269,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box;
 }
 
 .min-received-value {
@@ -388,9 +387,5 @@
 
 .info-icon {
     cursor: pointer;
-    display: flex;
-    height: 12px;
     margin-left: 5px;
-    width: 12px;
-    box-sizing: border-box;
 }

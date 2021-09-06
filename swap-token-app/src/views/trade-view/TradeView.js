@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { data } from '../../utils/mockData.js';
 import { useAlert } from 'react-alert'
 import { formatTokenVal, TOKEN_MAX_DECIMALS } from '../../utils/numberFormat'
+import Tooltip from '../../components/tooltips/Tooltip'
 import './TradeView.css';
 import ETH_ICON from '../../assets/ETH-icon.svg'
 import FEI_ICON from '../../assets/FEI-icon.svg'
@@ -115,7 +116,6 @@ const TradeView = () => {
                 </div>
                 <div className='amount-container'>
                     <input className={`amount-input ${tradingAmountError ? 'input-error' : ''}`} value={tradingAmount} onChange={handleAmountInputOnChange} type='number' min='0' />
-                    {/* ETh/FEI svg goes here */}
                     <div className='icon'><img src={isBuyState ? ETH_ICON : FEI_ICON} alt="ETH icon" /></div>
                     <div className='from-token'>{isBuyState ? 'ETH' : 'FEI'}</div>
                 </div>
@@ -136,6 +136,7 @@ const TradeView = () => {
                     <div className='min-received-value-container'>
                         <div className='min-received-value'>{`${minReceived} ${isBuyState ? 'FEI' : 'ETH'}`}</div>
                         <div className='info-icon'>
+                            <Tooltip content={`SLIPPAGE TOLERANCE ${swapFeePercentage}%`} />
                             <img src={INFO_ICON} alt="Info icon" />
                         </div>
                     </div>
