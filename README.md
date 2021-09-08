@@ -2,6 +2,10 @@
 
 An interface that simulates trading FEI tokens
 
+## What you need before cloning the project:
+
+Download and install Node.js
+
 ## How to run the project
 
 After cloning the code, you can run
