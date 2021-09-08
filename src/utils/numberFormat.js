@@ -9,6 +9,6 @@ export const formatUSD = (number) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(parseFloat(number))
 }
 
-export const formatMaxInput = (number, maxDecimals) => {
-    return parseFloat(number.toFixed(maxDecimals))
+export const formatNumberInput = (numberStr, maxDecimals) => {
+    return parseFloat(parseFloat(numberStr).toFixed(maxDecimals))
 }
