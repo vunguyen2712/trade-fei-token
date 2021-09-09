@@ -1,5 +1,5 @@
-export const TOKEN_MAX_DECIMALS = 6
-export const TOKEN_MIN_DECIMALS = 2
+export const ETH_MAX_DECIMALS = 6
+export const FEI_MAX_DECIMALS = 2
 
 /**
  * Format token value with thousand separator ',' using US locale

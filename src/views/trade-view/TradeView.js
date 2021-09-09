@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { data } from '../../utils/mockData.js';
 import { useAlert } from 'react-alert'
-import { formatTokenVal, formatUSD, formatNumberInput, TOKEN_MAX_DECIMALS, TOKEN_MIN_DECIMALS } from '../../utils/numberFormat'
+import { formatTokenVal, formatUSD, formatNumberInput, ETH_MAX_DECIMALS, FEI_MAX_DECIMALS } from '../../utils/numberFormat'
 import Tooltip from '../../components/tooltips/Tooltip'
 import './TradeView.css';
 import ETH_ICON from '../../assets/ETH-icon.svg'
@@ -19,8 +19,8 @@ const TradeView = () => {
     const [usdVal, setUsdVal] = useState(0)
     const [receivedTokenVal, setReceivedTokenVal] = useState(0)
     const [minReceived, setMinReceived] = useState(0)
-    const maxTokenDecimals = isBuyState ? TOKEN_MIN_DECIMALS : TOKEN_MAX_DECIMALS
-    const balanceDecimals = isBuyState ? TOKEN_MAX_DECIMALS : TOKEN_MIN_DECIMALS
+    const maxTokenDecimals = isBuyState ? FEI_MAX_DECIMALS : ETH_MAX_DECIMALS
+    const balanceDecimals = isBuyState ? ETH_MAX_DECIMALS : FEI_MAX_DECIMALS
 
     /**
      * Reset the form when trading state is switched.
@@ -90,7 +90,7 @@ const TradeView = () => {
      */
     const handleAmountInputOnChange = ({ target: { value: newVal } }) => {
         if (tradingAmountError) setTradingAmountError(null)
-        updateTradingAmount(formatNumberInput(newVal, balanceDecimals))
+        updateTradingAmount(parseFloat(newVal))
     }
 
     /**
@@ -99,14 +99,14 @@ const TradeView = () => {
     const executeTrade = () => {
         if (isBuyState) {
             setBalance({
-                ETH: balance.ETH - tradingAmount,
-                FEI: balance.FEI + minReceived,
+                ETH: formatNumberInput(balance.ETH - tradingAmount, ETH_MAX_DECIMALS),
+                FEI: formatNumberInput(balance.FEI + minReceived, FEI_MAX_DECIMALS),
             })
             alert.show(`You have purchased ${formatTokenVal(minReceived, maxTokenDecimals)} FEI.`)
         } else {
             setBalance({
-                ETH: balance.ETH + minReceived,
-                FEI: balance.FEI - tradingAmount,
+                ETH: formatNumberInput(balance.ETH + minReceived, ETH_MAX_DECIMALS),
+                FEI: formatNumberInput(balance.FEI - tradingAmount, FEI_MAX_DECIMALS),
             })
             alert.show(`You have received ${formatTokenVal(minReceived, maxTokenDecimals)} ETH.`)
         }
