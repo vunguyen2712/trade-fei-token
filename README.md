@@ -1,6 +1,6 @@
 # What is this app?
 
-An interface that simulates trading FEI tokens
+An interface that simulates trading an ERC-20 tokens
 
 ## What you need before cloning the project:
 
